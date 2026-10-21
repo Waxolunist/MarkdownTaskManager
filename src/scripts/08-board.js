@@ -82,6 +82,9 @@
             taskEl.className = 'task-card';
             taskEl.draggable = true;
             taskEl.dataset.taskId = task.id;
+            // Reachable with Tab / arrow keys (issue #24)
+            taskEl.tabIndex = 0;
+            taskEl.setAttribute('aria-label', `${task.id}: ${task.title}`);
 
             // Deadline accent on the card border (red overdue / orange due-soon).
             const due = dueStatus(task);
