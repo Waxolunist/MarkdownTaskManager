@@ -1,5 +1,30 @@
+        // Keep the open task in the URL hash (#TASK-012), so a reload reopens it.
+        // replaceState: opening/closing a task doesn't add browser history entries.
+        function setTaskHash(taskId) {
+            const url = location.pathname + location.search + (taskId ? '#' + taskId : '');
+            if (url !== location.pathname + location.search + location.hash) history.replaceState(null, '', url);
+        }
+
+        // Open the task named in the URL hash, if any. Archived tasks open from the archive.
+        async function openTaskFromHash() {
+            const m = /^#(TASK-\d+)$/.exec(location.hash);
+            if (!m) return;
+            const task = tasks.find(t => t.id === m[1]);
+            if (task) return showTaskDetail(task);
+            const archived = archivedTasks.find(t => t.id === m[1]);
+            if (archived) {
+                await openArchiveModal();
+                showTaskDetail(archived);
+            } else {
+                setTaskHash(null); // unknown in this project
+            }
+        }
+
+        window.addEventListener('hashchange', () => { if (directoryHandle) openTaskFromHash(); });
+
         function showTaskDetail(task) {
             currentDetailTask = task;
+            setTaskHash(task.id);
             const actions = document.getElementById('taskModalActions');
             const modal = document.getElementById('taskModal');
             const modalBody = document.getElementById('modalBody');
@@ -186,6 +211,7 @@
 
         function closeModal() {
             document.getElementById('taskModal').classList.remove('active');
+            setTaskHash(null);
             if (wasArchiveModalActive) {
                 document.getElementById('archiveModal').classList.add('active');
                 wasArchiveModalActive = false; // Reset for next time

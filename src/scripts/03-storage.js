@@ -182,6 +182,7 @@
 
                         // Update project selector now that kanban is visible
                         await updateProjectSelector();
+                        await openTaskFromHash();
 
                         showNotification(t('notif.projectLoaded', {name: project.customName || project.name}), 'success');
                     } else {
@@ -288,6 +289,7 @@
 
                         showNotification(t('notif.projectRestored'), 'success');
                         await updateProjectSelector(); // Show project selector
+                        await openTaskFromHash(); // reopen the task that was open before the reload
                         console.log('Project restored successfully');
                         return true;
                     } else {
