@@ -233,7 +233,7 @@ ${t('markdown.archiveSection')}
                 // Parse tags
                 const tagsMatch = configText.match(/\*\*Tags\*\*:\s*(.+)/);
                 if (tagsMatch) {
-                    config.tags = tagsMatch[1].split(/\s+/).filter(t => t.startsWith('#')).map(t => t.replace('#', ''));
+                    config.tags = tagsMatch[1].split(/[\s,]+/).filter(t => t.startsWith('#')).map(t => t.replace('#', ''));
                     console.log('Parsed tags:', config.tags);
                 }
             }

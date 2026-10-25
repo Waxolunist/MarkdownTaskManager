@@ -59,31 +59,27 @@
             <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.75rem; justify-content: center;">
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <label style="font-weight: 500; font-size: 0.9rem;">Tags:</label>
-                    <select id="filterTagSelect" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
+                    <select id="filterTagSelect" onchange="addFilter('tag')" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
                         <option value="">Sélectionner...</option>
                     </select>
-                    <button onclick="addFilter('tag')" class="btn btn-primary" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">+</button>
                 </div>
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <label style="font-weight: 500; font-size: 0.9rem;">Catégorie:</label>
-                    <select id="filterCategorySelect" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
+                    <select id="filterCategorySelect" onchange="addFilter('category')" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
                         <option value="">Sélectionner...</option>
                     </select>
-                    <button onclick="addFilter('category')" class="btn btn-primary" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">+</button>
                 </div>
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <label style="font-weight: 500; font-size: 0.9rem;">Utilisateur:</label>
-                    <select id="filterUserSelect" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
+                    <select id="filterUserSelect" onchange="addFilter('user')" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
                         <option value="">Sélectionner...</option>
                     </select>
-                    <button onclick="addFilter('user')" class="btn btn-primary" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">+</button>
                 </div>
                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                     <label style="font-weight: 500; font-size: 0.9rem;">Priorité:</label>
-                    <select id="filterPrioritySelect" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
+                    <select id="filterPrioritySelect" onchange="addFilter('priority')" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
                         <option value="">Sélectionner...</option>
                     </select>
-                    <button onclick="addFilter('priority')" class="btn btn-primary" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">+</button>
                 </div>
                 <button onclick="clearFilters()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">✕ Tout effacer</button>
             </div>
