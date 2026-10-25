@@ -4,7 +4,7 @@
         let currentKanbanContent = '';
         let tasks = [];
         let config = {};
-        let activeFilters = []; // Array of {type: 'tag'|'category'|'user', value: string}
+        let activeFilters = []; // Array of {type: 'tag'|'category'|'user'|'priority'|'due', value: string}
         let globalSearchTerm = ''; // Global search term for searching in title, description, and notes
         let isEditMode = false;
         let currentDetailTask = null;

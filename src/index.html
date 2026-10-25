@@ -81,6 +81,16 @@
                         <option value="">Sélectionner...</option>
                     </select>
                 </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <label style="font-weight: 500; font-size: 0.9rem;">Échéance:</label>
+                    <select id="filterDueSelect" onchange="addDueFilter()" style="padding: 0.5rem; border: 1px solid #cbd5e0; border-radius: 4px; min-width: 150px;">
+                        <option value="">Sélectionner...</option>
+                        <option value="none">Sans échéance</option>
+                        <option value="before">Échéance avant…</option>
+                        <option value="after">Échéance après…</option>
+                    </select>
+                    <input type="date" id="filterDueDate" onchange="addDueFilter()" style="display: none; padding: 0.45rem; border: 1px solid #cbd5e0; border-radius: 4px;">
+                </div>
                 <button onclick="clearFilters()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">✕ Tout effacer</button>
             </div>
             <div id="activeFilters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; min-height: 32px; justify-content: center;"></div>

@@ -20,6 +20,13 @@
                 'filters.category': 'Category:',
                 'filters.user': 'User:',
                 'filters.priority': 'Priority:',
+                'filters.due': 'Due:',
+                'filters.dueNone': 'No due date',
+                'filters.dueBefore': 'Due before…',
+                'filters.dueAfter': 'Due after…',
+                'filters.badgeDueNone': 'No due date',
+                'filters.badgeDueBefore': 'Due before {date}',
+                'filters.badgeDueAfter': 'Due after {date}',
                 'filters.select': 'Select...',
                 'filters.add': '+',
                 'filters.clearAll': '✕ Clear all',
@@ -246,6 +253,13 @@
                 'filters.category': 'Catégorie:',
                 'filters.user': 'Utilisateur:',
                 'filters.priority': 'Priorité:',
+                'filters.due': 'Échéance:',
+                'filters.dueNone': 'Sans échéance',
+                'filters.dueBefore': 'Échéance avant…',
+                'filters.dueAfter': 'Échéance après…',
+                'filters.badgeDueNone': 'Sans échéance',
+                'filters.badgeDueBefore': 'Échéance avant le {date}',
+                'filters.badgeDueAfter': 'Échéance après le {date}',
                 'filters.select': 'Sélectionner...',
                 'filters.add': '+',
                 'filters.clearAll': '✕ Tout effacer',
@@ -472,6 +486,13 @@
                 'filters.category': 'Kategorie:',
                 'filters.user': 'Benutzer:',
                 'filters.priority': 'Priorität:',
+                'filters.due': 'Fällig:',
+                'filters.dueNone': 'Kein Fälligkeitsdatum',
+                'filters.dueBefore': 'Fällig vor…',
+                'filters.dueAfter': 'Fällig nach…',
+                'filters.badgeDueNone': 'Kein Fälligkeitsdatum',
+                'filters.badgeDueBefore': 'Fällig vor {date}',
+                'filters.badgeDueAfter': 'Fällig nach {date}',
                 'filters.select': 'Auswählen...',
                 'filters.add': '+',
                 'filters.clearAll': '✕ Alles löschen',
@@ -697,6 +718,13 @@
                 'filters.category': '类别:',
                 'filters.user': '用户:',
                 'filters.priority': '优先级:',
+                'filters.due': '截止:',
+                'filters.dueNone': '无截止日期',
+                'filters.dueBefore': '截止早于…',
+                'filters.dueAfter': '截止晚于…',
+                'filters.badgeDueNone': '无截止日期',
+                'filters.badgeDueBefore': '截止早于 {date}',
+                'filters.badgeDueAfter': '截止晚于 {date}',
                 'filters.select': '选择...',
                 'filters.add': '+',
                 'filters.clearAll': '✕ 清空全部',
@@ -1184,10 +1212,17 @@
             if (labels[1]) labels[1].textContent = t('filters.category');
             if (labels[2]) labels[2].textContent = t('filters.user');
             if (labels[3]) labels[3].textContent = t('filters.priority');
+            if (labels[4]) labels[4].textContent = t('filters.due');
 
             // Update select options
             const selects = filterBar.querySelectorAll('select option[value=""]');
             selects.forEach(opt => opt.textContent = t('filters.select'));
+            const dueSelect = document.getElementById('filterDueSelect');
+            if (dueSelect) {
+                dueSelect.querySelector('option[value="none"]').textContent = t('filters.dueNone');
+                dueSelect.querySelector('option[value="before"]').textContent = t('filters.dueBefore');
+                dueSelect.querySelector('option[value="after"]').textContent = t('filters.dueAfter');
+            }
 
             // Update clear button
             const clearBtn = filterBar.querySelector('button[onclick="clearFilters()"]');

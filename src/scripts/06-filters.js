@@ -127,6 +127,47 @@
             }
         }
 
+        // Due date filter: "No due date" applies at once; "before"/"after" reveal a date input and
+        // apply once a date is picked. Stored as {type: 'due', value: 'none' | 'before:YYYY-MM-DD'
+        // | 'after:YYYY-MM-DD'}; a new before/after bound replaces the previous one of that kind.
+        function addDueFilter() {
+            const select = document.getElementById('filterDueSelect');
+            const dateInput = document.getElementById('filterDueDate');
+            const mode = select.value;
+
+            if (mode === 'before' || mode === 'after') {
+                dateInput.style.display = '';
+                if (!dateInput.value) {
+                    dateInput.focus();
+                    return;
+                }
+            }
+
+            let value = null;
+            if (mode === 'none') value = 'none';
+            else if (mode === 'before' || mode === 'after') value = `${mode}:${dateInput.value}`;
+
+            select.value = '';
+            dateInput.value = '';
+            dateInput.style.display = 'none';
+            if (!value) return;
+
+            activeFilters = activeFilters.filter(f => !(f.type === 'due' && f.value.split(':')[0] === mode));
+            activeFilters.push({ type: 'due', value });
+            renderFilters();
+            renderKanban();
+        }
+
+        // Does the task's **Due** date satisfy a due filter value? Dates are YYYY-MM-DD, so plain
+        // string comparison orders them; before/after are exclusive and skip tasks with no due date.
+        function matchesDueFilter(task, value) {
+            const due = (task.due || '').trim();
+            if (value === 'none') return !due;
+            const [mode, date] = value.split(':');
+            if (!due) return false;
+            return mode === 'before' ? due < date : due > date;
+        }
+
         function removeFilter(idx) {
             activeFilters.splice(idx, 1);
             renderFilters();
@@ -167,7 +208,8 @@
                 tag: '#3b82f6',      // Blue
                 category: '#8b5cf6', // Purple
                 user: '#10b981',     // Green
-                priority: '#f59e0b'  // Orange
+                priority: '#f59e0b', // Orange
+                due: '#ef4444'       // Red
             };
 
             container.innerHTML = activeFilters.map((f, idx) => {
@@ -188,6 +230,12 @@
                 if (f.type === 'user') {
                     const fullUserFormat = getUserFullFormat(f.value);
                     displayValue = fullUserFormat;
+                }
+
+                if (f.type === 'due') {
+                    const [mode, date] = f.value.split(':');
+                    displayValue = mode === 'none' ? t('filters.badgeDueNone')
+                        : t(mode === 'before' ? 'filters.badgeDueBefore' : 'filters.badgeDueAfter', { date });
                 }
 
                 return `
@@ -212,6 +260,8 @@
                         return task.assignees.some(assignee => normalizeUserId(assignee) === filter.value);
                     } else if (filter.type === 'priority') {
                         return task.priority === filter.value;
+                    } else if (filter.type === 'due') {
+                        return matchesDueFilter(task, filter.value);
                     }
                     return false;
                 });
