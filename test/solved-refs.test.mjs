@@ -65,3 +65,10 @@ test('strikes refs inside a task\'s **Notes** section, end to end', () => {
     assert.ok(struck(html, 'TASK-001'), html);
     assert.ok(!struck(html, 'TASK-003'), html);
 });
+
+test('strikes refs in escaped plain text such as subtask labels', () => {
+    const html = ctx.markSolvedTaskRefs('Check other jobs (see TASK-001 notes) &lt;b&gt; TASK-003');
+    assert.ok(struck(html, 'TASK-001'), html);
+    assert.ok(!struck(html, 'TASK-003'), html);
+    assert.ok(html.includes('&lt;b&gt;'), html);
+});

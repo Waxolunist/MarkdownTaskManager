@@ -172,7 +172,7 @@
                         <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">${t('meta.subtasks', {completed: task.subtasks.filter(st => st.completed).length, total: task.subtasks.length})}</div>
                         <ul id="subtasksList" style="list-style: none; padding: 0; margin: 0 0 1rem 0;">
                             ${task.subtasks.map((st, idx) => {
-                                const escapedText = st.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                                const escapedText = markSolvedTaskRefs(st.text.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
                                 return `
                                 <li style="padding: 0.5rem; margin-bottom: 0.25rem; background: var(--bg); border-radius: 4px; display: flex; align-items: center; gap: 0.5rem;">
                                     <input type="checkbox" ${st.completed ? 'checked' : ''} onchange="toggleSubtask('${task.id}', ${idx})" style="width: 18px; height: 18px; cursor: pointer;">
