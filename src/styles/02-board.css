@@ -265,6 +265,7 @@
 
         .task-ref--solved {
             color: var(--text-secondary);
+            text-decoration: line-through;
         }
 
         .task-subtasks {

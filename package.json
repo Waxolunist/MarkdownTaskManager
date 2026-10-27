@@ -6,7 +6,8 @@
   "description": "Single-file Markdown Kanban task manager — built from src/ into one self-contained, dependency-free task-manager.html",
   "scripts": {
     "build": "node build.mjs",
-    "build:dev": "node build.mjs --dev"
+    "build:dev": "node build.mjs --dev",
+    "test": "node --test \"test/*.test.mjs\""
   },
   "devDependencies": {
     "html-minifier-terser": "^7.2.0"
